@@ -1,0 +1,8 @@
+name: SbSurvServer
+version: '${project.version}'
+main: cn.afternode.sbsurv.server.SbSurvServer
+api-version: 1.16
+prefix: SbSurv
+softdepend: [ ProtocolLib ]
+authors: [ AFterNode ]
+description: SbSurv interface for Spigot Server
