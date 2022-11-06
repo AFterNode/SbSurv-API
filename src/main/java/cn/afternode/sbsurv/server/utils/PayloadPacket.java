@@ -4,6 +4,7 @@ import cn.afternode.sbsurv.server.utils.wrappers.CPacketCustomPayload;
 import org.bukkit.entity.Player;
 
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 
 public class PayloadPacket {
     private final CPacketCustomPayload packet;
@@ -20,5 +21,17 @@ public class PayloadPacket {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public HashMap<String, String> getKeyPairs() {
+        HashMap<String, String> map = new HashMap<>();
+
+        String[] strs = getString().split("\\|");
+        for (String str: strs) {
+            if (str.equals("SbSurv")) continue;
+            String[] s2 = str.split(" ");
+            map.put(s2[0], s2[1]);
+        }
+        return map;
     }
 }
