@@ -1,6 +1,11 @@
 package cn.afternode.sbsurv.server.utils;
 
+import cn.afternode.sbsurv.common.protocol.ProtocolAdapter;
+import cn.afternode.sbsurv.common.protocol.messages.OrderMessage;
 import cn.afternode.sbsurv.server.utils.wrappers.SPacketCustomPayload;
+import com.sun.org.apache.xpath.internal.operations.Or;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
@@ -24,7 +29,12 @@ public class PacketBuilder {
 
     public static SPacketCustomPayload buildCrasher() {
         SPacketCustomPayload pkt = buildEmpty();
-        pkt.setData("SbSurv|Crash".getBytes(StandardCharsets.UTF_8));
+        HashMap<String, String> map = new HashMap<>();
+        map.put("order", "crash");
+        OrderMessage msg = new OrderMessage(map);
+        ByteBuf bb = Unpooled.buffer();
+        bb.writeBytes(msg.toString().getBytes(StandardCharsets.UTF_8));
+        pkt.setData(bb.array());
         return pkt;
     }
 }
